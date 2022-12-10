@@ -5,13 +5,13 @@ import { NavSideBar } from '../layouts/NavSideBar'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="flex flex-col bg-state-900 text-state h-[100vh]">
+    <div className="flex flex-col bg-state-900 text-state min-h-[100vh]">
       <HeaderNavigationBar />
 
       <section className="flex flex-1">
         <NavSideBar className="flex-1"/>
 
-        <main className="flex-1 bg-state-300">
+        <main className="flex-1">
           <Component {...pageProps} />
         </main>
       </section>

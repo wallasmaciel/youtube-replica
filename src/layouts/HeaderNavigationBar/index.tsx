@@ -17,11 +17,11 @@ export function HeaderNavigationBar() {
                 <TextInput.Content customClassName="rounded-r-none w-[520px]">
                     <TextInput.Input placeholder="Pesquisar" />
                     <TextInput.Icon>
-                        <Keyboard size={ 18 } />
+                        <Keyboard size={ 18 } className="text-state-100/80" />
                     </TextInput.Icon>
 
                     <TextInput.Icon>
-                        <X size={ 18 } />
+                        <X size={ 18 } className="text-state-100/80" />
                     </TextInput.Icon>
                 </TextInput.Content>
 

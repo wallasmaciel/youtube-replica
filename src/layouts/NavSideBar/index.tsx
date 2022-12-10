@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react"
-import { House, MonitorPlay, Books, ClockCounterClockwise } from "phosphor-react"
+import { House, MonitorPlay, Receipt, Books, ClockCounterClockwise } from "phosphor-react"
 
 type ItemMenu = {
     icon: any, 
@@ -26,6 +26,13 @@ export function NavSideBar(props: Props) {
             },
         },
         {
+            icon: Receipt,
+            description: 'Incriptions',
+            eventClick: () => {
+                console.log('Incriptions...')
+            },
+        },
+        {
             icon: Books,
             description: 'Library',
             eventClick: () => {
@@ -47,10 +54,10 @@ export function NavSideBar(props: Props) {
             {itemsList.map((value, index) => (
                 <li key={ index } className="items-center text-center py-3 text-state-100/80 hover:text-state-100/100 cursor-pointer" 
                   onClick={ value.eventClick }>
-                    <span className="flex">
+                    <span className="flex mb-2">
                         <value.icon className="flex-1" weight={ index == 0? 'fill' : 'thin' } size={24} />
                     </span>
-                    <p>
+                    <p className="text-[0.6rem]">
                         { value.description }
                     </p>
                 </li>
