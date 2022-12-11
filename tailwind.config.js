@@ -25,7 +25,7 @@ module.exports = {
     extend: {  
       height: {
         headerNavigationBar: '3.5rem',
-      },
+      }
     }
   },
   plugins: [],

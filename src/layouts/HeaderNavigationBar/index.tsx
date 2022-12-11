@@ -2,12 +2,16 @@ import { MagnifyingGlass, Keyboard, Microphone, List, X } from "phosphor-react"
 import { ButtonSimple } from "../../components/ButtonSimple"
 import { ButtonsUser } from "./components/ButtonsUser"
 import { TextInput } from "../../components/TextInput"
+import { useAppDispatch } from "../../libs/redux/hooks"
+import { toggleNavSideBar } from "../../libs/redux/slices/navSideBar/navSideBarSlice"
 
 export function HeaderNavigationBar() {
+    const dispatch = useAppDispatch()
     return (
-        <header className="headerNavigationBar flex justify-between items-center px-4 py-2">
+        <header className="headerNavigationBar bg-state-800 z-30 sticky top-0 flex justify-between items-center px-4 py-2">
             <span className="flex items-center">
-                <ButtonSimple className="px-2">
+                <ButtonSimple className="px-2"
+                    onClick={ () => dispatch(toggleNavSideBar()) }>
                     <List size={ 24 } weight="bold" className="text-state-100/80"/>
                 </ButtonSimple>
                 <span className="text-state-50 py-2 ml-3">Youtube</span>
