@@ -1,22 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../store'
 
+type NavSideBar = {
+  open: boolean,
+  collapse: boolean
+}
 // Define a type for the slice state
 interface NavSideBarState {
-  value: boolean
-}
-// Define the initial state using that type
-const initialState: NavSideBarState = {
-  value: true
+  value: NavSideBar
 }
 
 export const navSideBarSlice = createSlice({
   name: 'navSideBar',
   // `createSlice` will infer the state type from the `initialState` argument
-  initialState,
+  initialState: {
+    value: {
+      open: true,
+      collapse: true
+    }
+  } as NavSideBarState,
   reducers: {
     toggle: (state) => {
-        state.value = !state.value
+        state.value.open = !state.value.open
+    },
+    toggleCollapse: (state) => {
+      state.value.collapse = !state.value.collapse
     }
   }
 })

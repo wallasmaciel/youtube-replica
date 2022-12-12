@@ -13,7 +13,7 @@ export function CardVideo() {
     }
 
     return (
-        <div className="w-[334px] h-[319px] p-2 mb-10">
+        <div className="w-cardVideo h-cardVideo p-2 mb-10">
             <a href="#">
                 <Image src="/hq720.jpg" width={ 354 } height={ 199 } alt="Thumbnail this video"
                     className="w-full rounded-lg"/>

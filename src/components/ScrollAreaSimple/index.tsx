@@ -1,22 +1,26 @@
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
+import styles from './styles.module.css'
 
 type Props = {
-    children: ReactNode
+    children: ReactNode,
+    className?: string,
+    style?: CSSProperties
 }
-export function ScrollAreaSimple({ children }: Props) {
+export function ScrollAreaSimple(props: Props) {
     return (
-        <ScrollArea.Root className="ScrollAreaRoot">
-            <ScrollArea.Viewport className="ScrollAreaViewport h-full">
-                { children }
+        <ScrollArea.Root className={ `${styles.ScrollAreaRoot} ${props.className}` }
+            style={ props.style }>
+            <ScrollArea.Viewport className={ styles.ScrollAreaViewport }>
+                { props.children }
             </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
-                <ScrollArea.Thumb className="ScrollAreaThumb" />
+            <ScrollArea.Scrollbar className={ styles.ScrollAreaScrollbar } orientation="vertical">
+                <ScrollArea.Thumb className={ styles.ScrollAreaThumb } />
             </ScrollArea.Scrollbar>
-            <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="horizontal">
-                <ScrollArea.Thumb className="ScrollAreaThumb" />
+            <ScrollArea.Scrollbar className={ styles.ScrollAreaScrollbar } orientation="horizontal">
+                <ScrollArea.Thumb className={ styles.ScrollAreaThumb } />
             </ScrollArea.Scrollbar>
-            <ScrollArea.Corner className="ScrollAreaCorner" />
+            <ScrollArea.Corner className={ styles.ScrollAreaCorner } />
         </ScrollArea.Root>  
     )
 }

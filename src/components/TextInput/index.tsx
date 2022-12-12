@@ -1,5 +1,5 @@
 import { Slot } from "@radix-ui/react-slot"
-import { InputHTMLAttributes, ReactNode } from "react" 
+import { forwardRef, InputHTMLAttributes, ReactNode } from "react" 
 
 type Props = {
     children: ReactNode
@@ -16,9 +16,15 @@ function Content({ customClassName, children }: CustomClassProps) {
     )
 }
 
-function Input(props: InputHTMLAttributes<HTMLInputElement>) {
-    return <input type="text" { ...props } className="w-[200px] flex-1 bg-transparent placeholder:text-state-600 outline-none"/>
-} 
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label?: string
+}
+const Input = forwardRef<HTMLInputElement, InputProps>(({ ...inputProps }: InputProps, ref?: React.Ref<HTMLInputElement>) => {
+    return ref? 
+        <input type="text" ref={ ref } { ...inputProps } className="w-[200px] flex-1 bg-transparent text-state-100 placeholder:text-state-600 outline-none" />
+        :
+        <input type="text" { ...inputProps } className="w-[200px] flex-1 bg-transparent text-state-100 placeholder:text-state-600 outline-none" />
+})
 
 function Icon({ customClassName, children }: CustomClassProps) {
     return (
@@ -32,6 +38,6 @@ function Icon({ customClassName, children }: CustomClassProps) {
 
 export const TextInput = { 
     Content, 
-    Input,
+    Input, 
     Icon
 }
