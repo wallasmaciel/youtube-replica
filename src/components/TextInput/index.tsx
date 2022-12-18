@@ -10,7 +10,7 @@ type CustomClassProps = Props & {
 }
 function Content({ customClassName, children }: CustomClassProps) {
     return (
-        <div className={ "flex bg-state-800 px-3 focus-within:ring-[0.06rem] focus-within:ring-cyan-500 ring-state-300 ring-[0.02rem] rounded-full " + customClassName }>
+        <div className={ "flex bg-zinc-900 px-3 focus-within:ring-[0.06rem] focus-within:ring-cyan-500 ring-zinc-500 ring-[0.02rem] rounded-full " + customClassName }>
             { children }
         </div>
     )
@@ -21,9 +21,9 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 }
 const Input = forwardRef<HTMLInputElement, InputProps>(({ ...inputProps }: InputProps, ref?: React.Ref<HTMLInputElement>) => {
     return ref? 
-        <input type="text" ref={ ref } { ...inputProps } className="w-[200px] flex-1 bg-transparent text-state-100 placeholder:text-state-600 outline-none" />
+        <input type="text" ref={ ref } { ...inputProps } className="w-[200px] flex-1 bg-transparent text-state-100 placeholder:text-zinc-500 outline-none" />
         :
-        <input type="text" { ...inputProps } className="w-[200px] flex-1 bg-transparent text-state-100 placeholder:text-state-600 outline-none" />
+        <input type="text" { ...inputProps } className="w-[200px] flex-1 bg-transparent text-state-100 placeholder:text-zinc-500 outline-none" />
 })
 
 function Icon({ customClassName, children }: CustomClassProps) {

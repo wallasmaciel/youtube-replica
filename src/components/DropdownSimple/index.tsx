@@ -1,9 +1,9 @@
-import React, { ReactNode, useState } from 'react';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import React, { ReactNode, useState } from 'react'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { 
   ChevronRightIcon, 
-} from '@radix-ui/react-icons';
-import styles from './styles.module.css'; 
+} from '@radix-ui/react-icons'
+import styles from './styles.module.css';
 
 type Props = {
   children: ReactNode
@@ -11,34 +11,37 @@ type Props = {
 
 type DropdownMenuSimpleProps = Props & {
   elementExpandMenu: JSX.Element, 
+  modal?: boolean,
   className?: string
 }
-const DropdownMenuSimple = (props: DropdownMenuSimpleProps) => {
+const DropdownMenuSimple = ({ children, elementExpandMenu, modal = true, className }: DropdownMenuSimpleProps) => {
   const [bookmarksChecked, setBookmarksChecked] = useState<boolean>(true)
   const [urlsChecked, setUrlsChecked] = useState<boolean>(false)
-  const [person, setPerson] = useState('pedro')
+  const [person, setPerson] = useState('pedro') 
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root modal={ modal }>
       <DropdownMenu.Trigger asChild>
-        <a className={ props.className } aria-label="Customise options">
-          { props.children }
+        <a className={ className } aria-label="Customise options">
+          { children }
         </a>
       </DropdownMenu.Trigger>
 
-      { props.elementExpandMenu }
+      { elementExpandMenu }
     </DropdownMenu.Root>
   )
 } 
 
 type DropdownPortalContentProps = Props & {
-  className?: string
+  side?: "left" | "top" | "right" | "bottom",
+  className?: string,
 }
-const DropdownPortalContent = (props: DropdownPortalContentProps) => (
+const DropdownPortalContent = ({ children, side = 'bottom', className }: DropdownPortalContentProps) => (
   <DropdownMenu.Portal>
-    <DropdownMenu.Content className={ `${styles.DropdownMenuContent} bg-state-800 text-state-100 ${props.className}` } 
-      sideOffset={5}>
-      { props.children }
+    <DropdownMenu.Content side={ side } className={ `${styles.DropdownMenuContent} bg-zinc-800 text-state-100 ${className ?? ''}` } 
+      sideOffset={ 10 }
+      style={{ minWidth: 'auto' }}>
+      { children }
     </DropdownMenu.Content>
   </DropdownMenu.Portal>
 )
@@ -57,7 +60,7 @@ const DropdownItemMenuTitle = (props: DropdownItemMenuTitleProps) => {
 
 const DropdownItemMenu = ({ children }: Props) => {
   return (
-    <DropdownMenu.Item className={ `${styles.DropdownMenuItem} cursor-pointer hover:bg-state-700` }>
+    <DropdownMenu.Item className={ `${styles.DropdownMenuItem} cursor-pointer hover:bg-zinc-700` }>
       { children }
     </DropdownMenu.Item>
   )
@@ -77,7 +80,7 @@ const DropdownItemMenuWithSubOptions = ({ children, descriptionItem, eventClick 
 
   return (
     <DropdownMenu.Sub>
-      <DropdownMenu.SubTrigger className={ `${styles.DropdownMenuSubTrigger} cursor-pointer hover:bg-state-700` }
+      <DropdownMenu.SubTrigger className={ `${styles.DropdownMenuSubTrigger} cursor-pointer hover:bg-zinc-700` }
         onClick={ eventOnClick }>
         { descriptionItem }
         <div className={ styles.RightSlot }>
@@ -86,7 +89,7 @@ const DropdownItemMenuWithSubOptions = ({ children, descriptionItem, eventClick 
       </DropdownMenu.SubTrigger>
 
       <DropdownMenu.SubContent
-        className={ `${styles.DropdownMenuSubContent} bg-state-800` } 
+        className={ `${styles.DropdownMenuSubContent} bg-zinc-800` } 
         sideOffset={2}
         alignOffset={-5} 
         hidden={ !children? true : false }
@@ -97,7 +100,7 @@ const DropdownItemMenuWithSubOptions = ({ children, descriptionItem, eventClick 
   )
 }
 
-const DropdownItemMenuSeparator = () => <DropdownMenu.Separator className={ `${styles.DropdownMenuSeparator} bg-state-700` } />
+const DropdownItemMenuSeparator = () => <DropdownMenu.Separator className={ `${styles.DropdownMenuSeparator} bg-zinc-700` } />
 const DropdownItemMenuLabel = (value: string) => <DropdownMenu.Label className={ styles.DropdownMenuLabel }>value</DropdownMenu.Label>
 
 type DropdownItemMenuRadioGroupProps = Props & {
@@ -114,7 +117,7 @@ const DropdownItemMenuRadioGroup = ({ children, value, setValue }: DropdownItemM
 
 const DropdownItemMenuRadioItem = ({ children, value }: DropdownItemMenuRadioGroupProps) => {
   return (
-    <DropdownMenu.RadioItem className={ `${styles.DropdownMenuRadioItem} cursor-pointer hover:bg-state-700` } value={ value }>
+    <DropdownMenu.RadioItem className={ `${styles.DropdownMenuRadioItem} cursor-pointer hover:bg-zinc-700` } value={ value }>
       { children }
     </DropdownMenu.RadioItem>
   )

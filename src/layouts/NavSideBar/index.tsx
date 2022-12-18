@@ -1,9 +1,9 @@
-import { HTMLAttributes, useState } from "react"
+import { HTMLAttributes, useState, useEffect } from "react"
 import { House, MonitorPlay, Receipt, Books, ClockCounterClockwise } from "phosphor-react"
 import { ButtonSimple } from "../../components/ButtonSimple"
 import { ScrollAreaSimple } from "../../components/ScrollAreaSimple"
 import { useAppDispatch, useAppSelector } from "../../libs/redux/hooks"
-import { toggleNavSideBar } from "../../libs/redux/slices/navSideBar/navSideBarSlice"
+import { toggleNavSideBar, toggleOnlyCollapsingNavSidebar } from "../../libs/redux/slices/navSideBar/navSideBarSlice"
 
 type ItemMenu = {
     icon: any, 
@@ -16,7 +16,11 @@ export function NavSideBar(props: Props) {
     const [pageActive, setPageActive] = useState<number>(0)
     
     const dispatch = useAppDispatch()
-    const { open: openNavSideBar, collapse: collapseNavSideBar } = useAppSelector(state => state.navSideBar.value)
+    const { 
+        open: openNavSideBar, 
+        collapse: collapseNavSideBar, 
+        onlyCollapsing: onlyCollapsingNavSideBar,
+    } = useAppSelector(state => state.navSideBar.value)
     const itemsList: ItemMenu[] = [
         {
             icon: House,
@@ -55,10 +59,22 @@ export function NavSideBar(props: Props) {
         }
     ]
 
+    function handleResize() { 
+        const tempOnlyCollapsing = window.innerWidth < 1280
+        dispatch(toggleOnlyCollapsingNavSidebar(tempOnlyCollapsing))
+    }
+
+    useEffect(() => {
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     return (
         <>
-            <aside className={`transition-all ${collapseNavSideBar || openNavSideBar? 'w-navSideBar-open' : 'w-navSideBar-close'}
-                ${collapseNavSideBar && !openNavSideBar? '-mx-56' : 'm-0'} z-20 bg-state-900 ${props.className} h-full` }>
+            <nav className={`${collapseNavSideBar || openNavSideBar? 'w-navSideBar-open' : 'w-navSideBar-close'}
+                ${collapseNavSideBar || onlyCollapsingNavSideBar? 'transition-all' : ''} ${(collapseNavSideBar && !openNavSideBar) && !onlyCollapsingNavSideBar? '-mx-56' : 'm-0'} z-20 bg-zinc-900 ${props.className} h-full` }>
                 <ScrollAreaSimple className="max-h-scrollNavSideBar">
                     <ul className="pt-2 border-b-[1px] border-state-100/10">
                         {itemsList.map((value, index) => (
@@ -69,8 +85,8 @@ export function NavSideBar(props: Props) {
                                     value.eventClick()
                                 setPageActive(index)
                             }}>
-                                { openNavSideBar || collapseNavSideBar? (
-                                    <ButtonSimple className={ `flex flex-row flex-1 items-center text-center -mt-2 ml-[14px] rounded-lg ${pageActive == index? 'bg-state-700/40': ''}` }>
+                                { (openNavSideBar || collapseNavSideBar)? (
+                                    <ButtonSimple className={ `flex flex-row flex-1 items-center text-center -mt-2 ml-[14px] rounded-lg ${pageActive == index? 'bg-zinc-700/40': ''}` }>
                                         <span className="pb-1">
                                             <value.icon className="flex-1" weight={ pageActive == index? 'fill' : 'thin' } size={24} />
                                         </span>
@@ -93,7 +109,7 @@ export function NavSideBar(props: Props) {
                         ))}
                     </ul>
                 </ScrollAreaSimple>
-            </aside>
+            </nav>
 
             {collapseNavSideBar && openNavSideBar? 
                 <div className="bg-transparent w-full h-screen absolute" 

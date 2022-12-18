@@ -1,50 +1,66 @@
-import { useRef } from "react"
-import { MagnifyingGlass, Keyboard, Microphone, List, X } from "phosphor-react"
+import { useState, useEffect, useRef, FormEvent } from "react"
+import { MagnifyingGlass, Microphone, List, ArrowLeft } from "phosphor-react"
 import { ButtonSimple } from "../../components/ButtonSimple"
 import { ButtonsUser } from "./components/ButtonsUser"
-import { TextInput } from "../../components/TextInput"
 import { useAppDispatch } from "../../libs/redux/hooks"
 import { toggleNavSideBar } from "../../libs/redux/slices/navSideBar/navSideBarSlice"
+import { useRouter } from "next/router"
+import { SearchInput } from "./components/SearchInput"
 
 export function HeaderNavigationBar() {
+    const router = useRouter()
     const dispatch = useAppDispatch()
     const searchInput = useRef<HTMLInputElement>(null)
+    // state controlling the search field for lower resolutions
+    const [searchInputRepress, setSearchInputRepress] = useState<boolean>(false)
+
+    function handleSearch(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        router.push(`/results?search_query=${searchInput.current?.value.split(' ').filter(value => value.trim() != '').join('+')}`)
+    }
+
+    function handleResize() {
+        setSearchInputRepress(window.innerWidth > 992)
+    }
+
+    useEffect(() => {
+        handleResize()
+        
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, []) 
     
     return (
-        <header className="headerNavigationBar bg-state-800 z-30 sticky top-0 flex justify-between items-center px-4 py-2">
-            <span className="flex items-center">
+        <header className="flex h-headerNavigationBar bg-zinc-900 z-30 fixed w-screen justify-between items-center px-4 py-2">
+            <span className={ `flex-1 flex items-center ${searchInputRepress? 'hidden' : 'inline-flex'} lg:inline-flex` }>
                 <ButtonSimple className="px-2"
                     onClick={ () => dispatch(toggleNavSideBar()) }>
                     <List size={ 24 } weight="bold" className="text-state-100/80"/>
                 </ButtonSimple>
-                <span className="text-state-50 py-2 ml-3">Youtube</span>
+                <a onClick={ () => router.push("/") } className="text-state-50 py-2 ml-3 cursor-pointer">Youtube</a>
             </span>
 
-            <form className="flex h-9">
-                <TextInput.Content customClassName="rounded-r-none w-[520px]">
-                    <TextInput.Input placeholder="Pesquisar"
-                        ref={ searchInput }/>
-                    <TextInput.Icon>
-                        <Keyboard size={ 18 } className="text-state-100/80" />
-                    </TextInput.Icon>
+            <div className={ `flex-1 items-center w-[520px] ${searchInputRepress? 'inline-flex' : 'hidden'} lg:inline-flex` }>
+                <ButtonSimple title="Backpress" 
+                    onClick={ () => setSearchInputRepress(false) }
+                    className={ `px-2 ${searchInputRepress? 'inline' : 'hidden'} lg:hidden`}>
+                    <ArrowLeft size={ 24 } weight="bold" className="text-state-100/80" />
+                </ButtonSimple>
+                <SearchInput searchInputRef={ searchInput } handleSearch={ handleSearch } />
+            </div>
 
-                    <TextInput.Icon>
-                        <X size={ 18 } className="text-state-100/80" />
-                    </TextInput.Icon>
-                </TextInput.Content>
+            <span className={ `flex-1 justify-end ${searchInputRepress? 'hidden' : 'inline-flex'} lg:inline-flex` }>
+                <div className="inline-flex lg:hidden">
+                    <ButtonSimple title="Search" onClick={ () => setSearchInputRepress(true) }>
+                        <MagnifyingGlass size={ 24 } className="text-state-50/80"/>
+                    </ButtonSimple>
 
-                <button type="button" title="Search" className="ml-[0.13rem] bg-state-600 py-2 px-4 border-state-600 rounded-full 
-                    rounded-l-none ring-state-600 ring-1" 
-                    onClick={() => console.log(searchInput.current?.value)}>
-                    <MagnifyingGlass size={ 16 } className="text-state-100/80" />
-                </button>
-
-                <ButtonSimple title="Search by voice" className="ml-2">
-                    <Microphone size={ 16 } weight="fill" className="text-state-100/80" />
-                </ButtonSimple> 
-            </form>
-
-            <ButtonsUser />
+                    <ButtonSimple title="Search by voice">
+                        <Microphone size={ 24 } weight="fill" className="text-state-50/80"/>
+                    </ButtonSimple>
+                </div>
+                <ButtonsUser />
+            </span>
         </header>
     )
 }

@@ -3,14 +3,13 @@
   overflow-y: scroll;
   scrollbar-color: black transparent;
   scrollbar-width: thin;
-  box-shadow: 0 2px 10px var(--blackA7); 
   --scrollbar-size: 10px;
 }
 
 .ScrollAreaRoot::-webkit-scrollbar, 
 .ScrollAreaRoot::-webkit-scrollbar-thumb {
   background-color: transparent; 
-  width: 8px;
+  width: 0px;
   height: 56px;
 }
 

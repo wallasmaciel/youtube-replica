@@ -4,19 +4,21 @@ import { HeaderNavigationBar } from '../layouts/HeaderNavigationBar'
 import { NavSideBar } from '../layouts/NavSideBar'
 import { Provider } from 'react-redux'
 import { store } from '../libs/redux/store'
+import { ContentMain } from '../layouts/ContentMain'
 
 export default function App({ Component, pageProps }: AppProps) {
-
   return (
     <Provider store={ store }>
-      <div className="flex flex-col bg-state-900 text-state min-h-screen">
+      <div className="flex flex-col bg-zinc-900 text-state min-h-screen">
         <HeaderNavigationBar />
 
-        <section className="flex flex-1">
+        <section className="flex flex-1 mt-headerNavigationBar">
           <NavSideBar className="flex-1 fixed"/>  
 
           <main className="flex-1">
-            <Component {...pageProps} />
+            <ContentMain>
+              <Component {...pageProps} />
+            </ContentMain>
           </main>
         </section>
       </div>

@@ -7,7 +7,64 @@
 @import '@radix-ui/colors/violet.css';
 
 @layer base {
+    :root {
+        --transparent: 'transparent';
+
+        --state-50: #f8fafc;
+        --state-100: #f1f5f9; 
+        --state-300: #cbd5e1; 
+        --state-400: #94a3b8; 
+        --state-500: #64748b; 
+        --state-600: #475569;
+        --state-700: #334155;
+        --state-800: #1e293b;
+        --state-900: #0F172A;
+
+        --zinc-400: #a1a1aa;
+        --zinc-500: #71717a;
+        --zinc-600: #52525b;
+        --zinc-700: #3f3f46;
+        --zinc-800: #27272a;
+        --zinc-900: #18181b;
+
+        --red-50: #FEF2F2;
+        --red-100: #FEE2E2;
+        --red-200: #FECACA;
+        --red-300: #FCA5A5;
+        --red-400: #F87171;
+        --red-500: #EF4444;
+        --red-600: #DC2626;
+        --red-700: #B91C1C;
+        --red-800: #991B1B;
+        --red-900: #7F1D1D;
+
+        --cyan-500: #81d8f7;
+        --cyan-300: #9BE1FB;
+    }
+
     html, body {
-        font-family: Roboto, Arial, sans-serif
+        font-family: Roboto, Arial, sans-serif;
+        background-color: var(--zinc-900);
+        scrollbar-color: var(--zinc-800) var(--zinc-900);
+        scrollbar-width: thin;
+        box-shadow: 0 2px 10px var(--zinc-800); 
+        --scrollbar-size: 12px;
+    } 
+
+    body::-webkit-scrollbar {
+        width: 16px;
+        scroll-margin-right: 20px;
+    }
+    
+    body::-webkit-scrollbar-thumb { 
+        height: 4rem;
+        border-radius: 8px;
+        border: 5px solid transparent;
+        background-clip: content-box;
+        background-color: var(--zinc-700);
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: var(--zinc-900); 
     }
 }

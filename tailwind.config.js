@@ -4,6 +4,8 @@ module.exports = {
   theme: {
     colors: { 
       transparent: 'transparent',
+      white: '#FFFFFF',
+      black: '#000000',
 
       state: {
         '50': '#f8fafc',
@@ -15,6 +17,15 @@ module.exports = {
         '700': '#334155',
         '800': '#1e293b',
         '900': '#0F172A'
+      },
+
+      zinc: {
+        '400': '#a1a1aa',
+        '500': '#71717a',
+        '600': '#52525b',
+        '700': '#3f3f46',
+        '800': '#27272a',
+        '900': '#18181b'
       },
 
       red: {
@@ -46,9 +57,23 @@ module.exports = {
         cardVideo: '19rem',
 
         headerNavigationBar: '3.5rem',
+        notifications: 'calc(100vh - 400px)',
+      },
+      maxWidth: {
+        cardVideoInline: '70rem',
       },
       maxHeight: {
-        scrollNavSideBar: 'calc(100vh - 70px)'
+        cardVideoInline: '15rem',
+        scrollNavSideBar: 'calc(100vh - 70px)',
+        scrollPlaylist: 'calc(100vh - 90px)',
+        scrollItemsPlaylist: 'calc(100vh - 100px)',
+        notifications: 400,
+      },
+      minWidth: {
+        cardVideoInline: '50rem',
+      },
+      margin: { 
+        headerNavigationBar: '3.5rem',
       }
     }
   },
