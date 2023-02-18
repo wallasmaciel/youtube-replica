@@ -20,6 +20,7 @@ export function NavSideBar(props: Props) {
         open: openNavSideBar, 
         collapse: collapseNavSideBar, 
         onlyCollapsing: onlyCollapsingNavSideBar,
+        hidden: hiddenNavSideBar,
     } = useAppSelector(state => state.navSideBar.value)
     const itemsList: ItemMenu[] = [
         {
@@ -73,7 +74,7 @@ export function NavSideBar(props: Props) {
 
     return (
         <>
-            <nav className={`${collapseNavSideBar || openNavSideBar? 'w-navSideBar-open' : 'w-navSideBar-close'}
+            <nav className={`${collapseNavSideBar || openNavSideBar? 'w-navSideBar-open' : !hiddenNavSideBar? 'w-navSideBar-close' : 'hidden'}
                 ${collapseNavSideBar || onlyCollapsingNavSideBar? 'transition-all' : ''} ${(collapseNavSideBar && !openNavSideBar) && !onlyCollapsingNavSideBar? '-mx-56' : 'm-0'} z-20 bg-zinc-900 ${props.className} h-full` }>
                 <ScrollAreaSimple className="max-h-scrollNavSideBar">
                     <ul className="pt-2 border-b-[1px] border-state-100/10">

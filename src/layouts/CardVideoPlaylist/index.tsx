@@ -6,7 +6,10 @@ type CardVideoPlaylistProps = {
 }
 export function CardVideoPlaylist({ positionIndex }: CardVideoPlaylistProps) {
     const metadata: VideoMetaData = {
-      channel: "CazéTV",
+      channel: {
+        name: "CazéTV",
+        link: "",
+      },
       video: {
           title: "AO VIVO E COM IMAGENS: INGLATERRA X FRANÇA | QUARTAS DE FINAL | COPA DO MUNDO 2022",
           description: "Pessoas, obrigado pela paciência, eu realmente busquei o melhor resultado possível pra esse som, e eu espero que vocês curtam o resultado, eu sinceramente amei esse som, e espero que vocês também!!!!",
@@ -39,7 +42,7 @@ export function CardVideoPlaylist({ positionIndex }: CardVideoPlaylistProps) {
                         <span className="flex items-center py-3">
                           <Image src="/channels4_profile.jpg" width={ 26 } height={ 26 } alt="Channel profile"
                               className="rounded-full"/>
-                          <a href="#" title={ metadata.channel } className="text-zinc-400 text-sm ml-2">{ metadata.channel }</a>
+                          <a href="#" title={ metadata.channel.name } className="text-zinc-400 text-sm ml-2">{ metadata.channel.name }</a>
                         </span>
                     </div>
                 </div>

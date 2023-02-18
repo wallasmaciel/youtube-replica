@@ -32,8 +32,7 @@ export function SearchInput({ searchInputRef, handleSearch }: SearchInputProps) 
       </TextInput.Content>
 
       <button type="submit" title="Search" className="ml-[0.13rem] bg-zinc-600 py-2 px-4 border-zinc-600 rounded-full 
-          rounded-l-none ring-zinc-600 ring-1" 
-          onClick={() => console.log(searchInputRef.current?.value)}>
+          rounded-l-none ring-zinc-600 ring-1">
           <MagnifyingGlass size={ 16 } className="text-state-100/80" />
       </button>
 

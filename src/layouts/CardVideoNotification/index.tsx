@@ -4,7 +4,10 @@ import { AvatarSimple } from "../../components/AvatarSimple"
 
 export function CardVideoPlayNotification() {
     const metadata: VideoMetaData = {
-      channel: "CazéTV",
+      channel: {
+        name: "CazéTV",
+        link: "",
+      },
       video: {
           title: "AO VIVO E COM IMAGENS: INGLATERRA X FRANÇA | QUARTAS DE FINAL | COPA DO MUNDO 2022",
           description: "Pessoas, obrigado pela paciência, eu realmente busquei o melhor resultado possível pra esse som, e eu espero que vocês curtam o resultado, eu sinceramente amei esse som, e espero que vocês também!!!!",
@@ -28,7 +31,7 @@ export function CardVideoPlayNotification() {
             <div className={ `flex-1 flex text-state-5 -mt-1 pl-4` }> 
                 <div className="flex-1">
                     <a href="#" className="text-state-300 text-xs font-bold" title={ metadata.video.title }>
-                      O canal { metadata.channel } iniciou uma estreia: { metadata.video.title }
+                      O canal { metadata.channel.name } iniciou uma estreia: { metadata.video.title }
                     </a>
                     <p className="text-zinc-400 text-xs">{ `${metadata.video.views} • ${metadata.video.longTime}` }</p>
                 </div>

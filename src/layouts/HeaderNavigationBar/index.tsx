@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../libs/redux/hooks"
 import { toggleNavSideBar } from "../../libs/redux/slices/navSideBar/navSideBarSlice"
 import { useRouter } from "next/router"
 import { SearchInput } from "./components/SearchInput"
+import Image from "next/image"
 
 export function HeaderNavigationBar() {
     const router = useRouter()
@@ -16,6 +17,7 @@ export function HeaderNavigationBar() {
 
     function handleSearch(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
+        if ((searchInput.current?.value ?? '') == '') return
         router.push(`/results?search_query=${searchInput.current?.value.split(' ').filter(value => value.trim() != '').join('+')}`)
     }
 
@@ -37,7 +39,10 @@ export function HeaderNavigationBar() {
                     onClick={ () => dispatch(toggleNavSideBar()) }>
                     <List size={ 24 } weight="bold" className="text-state-100/80"/>
                 </ButtonSimple>
-                <a onClick={ () => router.push("/") } className="text-state-50 py-2 ml-3 cursor-pointer">Youtube</a>
+                <a onClick={ () => router.push("/") } className="text-state-50 py-2 ml-3 cursor-pointer">
+                    <Image src="/logo.png" width={ 90 } height={ 20 }
+                        alt="YouTube"/>
+                </a>
             </span>
 
             <div className={ `flex-1 items-center w-[520px] ${searchInputRepress? 'inline-flex' : 'hidden'} lg:inline-flex` }>
